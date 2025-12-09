@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toledo Ark - New Hire Onboarding</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c5aa0;
+            --primary-dark: #1e3a6e;
+            --secondary: #4caf50;
+            --accent: #ff9800;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border: #dee2e6;
+            --danger: #dc3545;
+            --success: #28a745;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 8px;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px 0;
+            border-radius: 0 0 var(--radius) var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .progress-container {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-title i {
+            color: var(--accent);
+        }
+
+        .progress-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 12px;
+            border-radius: var(--radius);
+            background-color: var(--light-gray);
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .step.completed {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .step.active .step-number {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background-color: white;
+            color: var(--success);
+        }
+
+        .forms-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .forms-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .form-title {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-title i {
+            color: var(--primary);
+        }
+
+        .form-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-required {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .form-content {
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-instructions {
+            background-color: var(--light-gray);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .download-section {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .download-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .download-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .download-item {
+            background-color: var(--light);
+            border-radius: var(--radius);
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .download-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .download-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .download-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .completion-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .completion-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--danger);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+            }
+
+            .step {
+                text-align: left;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Toledo Ark</h1>
+                        <p>New Hire Onboarding Portal</p>
+                    </div>
+                </div>
+                <div class="welcome-message">
+                    <p>Welcome to the team! Please complete all required forms.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-title">
+                <i class="fas fa-tasks"></i>
+                <span>Onboarding Progress</span>
+            </div>
+            <div class="progress-steps">
+                <div class="step active" id="step1">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Application & References</span>
+                </div>
+                <div class="step" id="step2">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Emergency & Tax Forms</span>
+                </div>
+                <div class="step" id="step3">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Training & Documents</span>
+                </div>
+                <div class="step" id="step4">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Background & Policies</span>
+                </div>
+                <div class="step" id="step5">
+                    <span class="step-number">5</span>
+                    <span class="step-text">Complete</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="forms-container">
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Application & Credentialing Form</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Complete application for employment and credentialing information.</p>
+                        <p>This form collects your personal and professional information for the hiring process.</p>
+                    </div>
+
+                    <form id="applicationForm">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appFirstName" class="form-label required">First Name</label>
+                                    <input type="text" id="appFirstName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appMiddleInitial" class="form-label">Middle Initial</label>
+                                    <input type="text" id="appMiddleInitial" class="form-control" maxlength="1">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appLastName" class="form-label required">Last Name</label>
+                                    <input type="text" id="appLastName" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appOtherLastNames" class="form-label">Other Last Names Used</label>
+                            <input type="text" id="appOtherLastNames" class="form-control" placeholder="If applicable">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appDOB" class="form-label required">Date of Birth</label>
+                            <input type="date" id="appDOB" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appGender" class="form-label required">Gender</label>
+                            <select id="appGender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not">Prefer not to say</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appSSN" class="form-label required">Social Security Number</label>
+                            <input type="text" id="appSSN" class="form-control" placeholder="XXX-XX-XXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appHomeAddress" class="form-label required">Full Home Address</label>
+                            <input type="text" id="appHomeAddress" class="form-control" placeholder="Street address, Apt/Suite" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="appMailingAddress" class="form-label">Mailing Address (if different)</label>
+                            <input type="text" id="appMailingAddress" class="form-control" placeholder="If different from home address">
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appCity" class="form-label required">City</label>
+                                    <input type="text" id="appCity" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appState" class="form-label required">State</label>
+                                    <input type="text" id="appState" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appZip" class="form-label required">ZIP Code</label>
+                                    <input type="text" id="appZip" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appPhone" class="form-label required">Phone Number</label>
+                                    <input type="tel" id="appPhone" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appEmail" class="form-label required">Email Address</label>
+                                    <input type="email" id="appEmail" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appBirthCity" class="form-label required">City Where Born</label>
+                                    <input type="text" id="appBirthCity" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appBirthState" class="form-label required">State of Birth</label>
+                                    <input type="text" id="appBirthState" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appBirthCountry" class="form-label">Country of Birth (if outside US)</label>
+                                    <input type="text" id="appBirthCountry" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="positionApplied" class="form-label required">Position Applied For</label>
+                            <input type="text" id="positionApplied" class="form-control" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="startDate" class="form-label required">Start Date</label>
+                                    <input type="date" id="startDate" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="appLocation" class="form-label required">Location/Site</label>
+                                    <input type="text" id="appLocation" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="bestTimeToContact" class="form-label required">Best Time to Contact You</label>
+                                    <select id="bestTimeToContact" class="form-control" required>
+                                        <option value="">Select Time</option>
+                                        <option value="morning">Morning (8AM-12PM)</option>
+                                        <option value="afternoon">Afternoon (12PM-5PM)</option>
+                                        <option value="evening">Evening (5PM-9PM)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="bestWayToContact" class="form-label required">Best Way to Contact</label>
+                                    <select id="bestWayToContact" class="form-control" required>
+                                        <option value="">Select Method</option>
+                                        <option value="phone">Phone</option>
+                                        <option value="email">Email</option>
+                                        <option value="text">Text Message</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="npiNumber" class="form-label">NPI Number (if applicable)</label>
+                            <input type="text" id="npiNumber" class="form-control" placeholder="National Provider Identifier">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medicareTIN" class="form-label">Medicare TIN#</label>
+                            <input type="text" id="medicareTIN" class="form-control" placeholder="Taxpayer Identification Number">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="medicareTIN_NA" name="medicareTIN">
+                                <label for="medicareTIN_NA">N/A</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medicaidNumber" class="form-label">Medicaid#</label>
+                            <input type="text" id="medicaidNumber" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="credentials" class="form-label">Credentials</label>
+                            <input type="text" id="credentials" class="form-control" placeholder="e.g., MD, RN, LCSW">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="caqhProvider" class="form-label">CAQH Provider #</label>
+                            <input type="text" id="caqhProvider" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="attestationCurrent" required>
+                                <label for="attestationCurrent" class="required">Attestation must be current</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="certificationsLicenses" class="form-label required">List all Certification and License #'s with Effective Dates and State Association</label>
+                            <textarea id="certificationsLicenses" class="form-control" rows="4" placeholder="List each certification/license with dates and state association" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="collegesAttended" class="form-label required">List all College's Attended with EXACT DATES attended and completion date</label>
+                            <textarea id="collegesAttended" class="form-control" rows="4" placeholder="Institution name, dates attended, completion date" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="workHistory" class="form-label required">Work History for the past 5 years - Please list EXACT DATES worked with each Employer</label>
+                            <textarea id="workHistory" class="form-control" rows="6" placeholder="Employer, job title, exact dates (MM/YYYY - MM/YYYY), reason for leaving" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Questions</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Q1: Have any of your board certifications ever been suspended, revoked or voluntarily surrendered?</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q1_yes" name="q1" value="yes" required>
+                                <label for="q1_yes">Yes</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q1_no" name="q1" value="no" required>
+                                <label for="q1_no">No</label>
+                            </div>
+                            <textarea id="q1_explanation" class="form-control" rows="2" placeholder="If yes, please explain"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Q2: Have your privileges at any hospital, facility, HMO or health plan been voluntarily or involuntarily surrendered, denied, suspended, revoked, restricted, limited, or placed on probation?</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q2_yes" name="q2" value="yes" required>
+                                <label for="q2_yes">Yes</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q2_no" name="q2" value="no" required>
+                                <label for="q2_no">No</label>
+                            </div>
+                            <textarea id="q2_explanation" class="form-control" rows="2" placeholder="If yes, please explain"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Q3: Have you ever been placed on probation or asked to resign from an internship, or other training program?</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q3_yes" name="q3" value="yes" required>
+                                <label for="q3_yes">Yes</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q3_no" name="q3" value="no" required>
+                                <label for="q3_no">No</label>
+                            </div>
+                            <textarea id="q3_explanation" class="form-control" rows="2" placeholder="If yes, please explain"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Q4: Has your malpractice insurance ever been cancelled, suspended, restricted, limited, special rated, or not renewed?</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q4_yes" name="q4" value="yes" required>
+                                <label for="q4_yes">Yes</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q4_no" name="q4" value="no" required>
+                                <label for="q4_no">No</label>
+                            </div>
+                            <textarea id="q4_explanation" class="form-control" rows="2" placeholder="If yes, please explain"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Q5: Has information pertaining to you ever been reported to the National Practitioner Data Bank?</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q5_yes" name="q5" value="yes" required>
+                                <label for="q5_yes">Yes</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="q5_no" name="q5" value="no" required>
+                                <label for="q5_no">No</label>
+                            </div>
+                            <textarea id="q5_explanation" class="form-control" rows="2" placeholder="If yes, please explain"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Emergency Contact</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emerContactName" class="form-label required">Staff Emergency Contact Name</label>
+                            <input type="text" id="emerContactName" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emerContactRelationship" class="form-label required">Relationship</label>
+                            <input type="text" id="emerContactRelationship" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emerContactAddress" class="form-label required">Address</label>
+                            <input type="text" id="emerContactAddress" class="form-control" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emerContactCity" class="form-label required">City</label>
+                                    <input type="text" id="emerContactCity" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emerContactState" class="form-label required">State</label>
+                                    <input type="text" id="emerContactState" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emerContactZip" class="form-label required">ZIP Code</label>
+                                    <input type="text" id="emerContactZip" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emerContactPhone" class="form-label required">Phone #</label>
+                            <input type="tel" id="emerContactPhone" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="appCertification" required>
+                                <label for="appCertification" class="required">I certify that all information provided is true and accurate to the best of my knowledge</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearApplication">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitApplication">
+                        <i class="fas fa-check-circle"></i> Submit Application
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-phone"></i>
+                        <span>Telephone Reference Form</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Provide professional references for verification.</p>
+                        <p>Please provide at least two professional references.</p>
+                    </div>
+
+                    <form id="referenceForm">
+                        <div class="form-group">
+                            <h4>Reference 1</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref1Name" class="form-label required">Full Name</label>
+                                    <input type="text" id="ref1Name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref1Relationship" class="form-label required">Relationship</label>
+                                    <input type="text" id="ref1Relationship" class="form-control" placeholder="e.g., Supervisor, Colleague" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref1Phone" class="form-label required">Phone Number</label>
+                                    <input type="tel" id="ref1Phone" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref1Email" class="form-label">Email Address</label>
+                                    <input type="email" id="ref1Email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Reference 2</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref2Name" class="form-label required">Full Name</label>
+                                    <input type="text" id="ref2Name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref2Relationship" class="form-label required">Relationship</label>
+                                    <input type="text" id="ref2Relationship" class="form-control" placeholder="e.g., Supervisor, Colleague" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref2Phone" class="form-label required">Phone Number</label>
+                                    <input type="tel" id="ref2Phone" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ref2Email" class="form-label">Email Address</label>
+                                    <input type="email" id="ref2Email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="refCertification" required>
+                                <label for="refCertification" class="required">I authorize Toledo Ark to contact these references</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearReference">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitReference">
+                        <i class="fas fa-check-circle"></i> Submit References
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-address-book"></i>
+                        <span>Employee Emergency Contact Form</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Provide emergency contact information for use in case of emergency.</p>
+                        <p>This information will be kept confidential and used only for emergency purposes.</p>
+                    </div>
+
+                    <form id="emergencyForm">
+                        <div class="form-group">
+                            <h4>Primary Emergency Contact</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer1Name" class="form-label required">Full Name</label>
+                                    <input type="text" id="emer1Name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer1Relationship" class="form-label required">Relationship</label>
+                                    <input type="text" id="emer1Relationship" class="form-control" placeholder="e.g., Spouse, Parent" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer1Phone" class="form-label required">Phone Number</label>
+                                    <input type="tel" id="emer1Phone" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer1AltPhone" class="form-label">Alternate Phone</label>
+                                    <input type="tel" id="emer1AltPhone" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Secondary Emergency Contact (Optional)</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer2Name" class="form-label">Full Name</label>
+                                    <input type="text" id="emer2Name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer2Relationship" class="form-label">Relationship</label>
+                                    <input type="text" id="emer2Relationship" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer2Phone" class="form-label">Phone Number</label>
+                                    <input type="tel" id="emer2Phone" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="emer2AltPhone" class="form-label">Alternate Phone</label>
+                                    <input type="tel" id="emer2AltPhone" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emerCertification" required>
+                                <label for="emerCertification" class="required">I certify that the emergency contact information provided is current and accurate</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearEmergency">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitEmergency">
+                        <i class="fas fa-check-circle"></i> Submit Emergency Contact
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Federal Withholding (W-4) Form</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Determine federal income tax withholding from your pay.</p>
+                        <p>Complete this form so your employer can withhold the correct federal income tax from your pay.</p>
+                    </div>
+
+                    <form id="w4Form">
+                        <div class="form-group">
+                            <label for="w4Name" class="form-label required">Full Name</label>
+                            <input type="text" id="w4Name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="w4SSN" class="form-label required">Social Security Number</label>
+                            <input type="text" id="w4SSN" class="form-control" placeholder="XXX-XX-XXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="w4Address" class="form-label required">Home Address</label>
+                            <input type="text" id="w4Address" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="filingStatus" class="form-label required">Filing Status</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="single" name="filingStatus" value="single" checked>
+                                <label for="single">Single or Married Filing Separately</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="marriedJoint" name="filingStatus" value="marriedJoint">
+                                <label for="marriedJoint">Married Filing Jointly</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="headOfHousehold" name="filingStatus" value="headOfHousehold">
+                                <label for="headOfHousehold">Head of Household</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dependents" class="form-label">Number of Dependents</label>
+                            <input type="number" id="dependents" class="form-control" min="0" value="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="otherIncome" class="form-label">Other Income</label>
+                            <input type="text" id="otherIncome" class="form-control" placeholder="Describe any other income">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="extraWithholding" class="form-label">Extra Withholding</label>
+                            <input type="number" id="extraWithholding" class="form-control" min="0" placeholder="Enter any additional tax to withhold">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="w4Certification" required>
+                                <label for="w4Certification" class="required">I certify that I am not subject to backup withholding and that the information provided is true and correct</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearW4">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitW4">
+                        <i class="fas fa-check-circle"></i> Submit W-4
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>State Withholding (IT-4) Form</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Ohio Income Tax Withholding Form.</p>
+                        <p>Complete this form to determine Ohio state income tax withholding.</p>
+                    </div>
+
+                    <form id="it4Form">
+                        <div class="form-group">
+                            <label for="it4Name" class="form-label required">Full Name</label>
+                            <input type="text" id="it4Name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="it4SSN" class="form-label required">Social Security Number</label>
+                            <input type="text" id="it4SSN" class="form-control" placeholder="XXX-XX-XXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="it4Address" class="form-label required">Home Address</label>
+                            <input type="text" id="it4Address" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="it4FilingStatus" class="form-label required">Filing Status</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="it4Single" name="it4FilingStatus" value="single" checked>
+                                <label for="it4Single">Single</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="it4Married" name="it4FilingStatus" value="married">
+                                <label for="it4Married">Married</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="it4Head" name="it4FilingStatus" value="head">
+                                <label for="it4Head">Head of Household</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="it4Dependents" class="form-label">Number of Dependents</label>
+                            <input type="number" id="it4Dependents" class="form-control" min="0" value="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="it4ExtraWithholding" class="form-label">Extra Withholding</label>
+                            <input type="number" id="it4ExtraWithholding" class="form-control" min="0" placeholder="Enter any additional tax to withhold">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="it4Certification" required>
+                                <label for="it4Certification" class="required">I certify that the information provided is true and correct</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearIT4">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitIT4">
+                        <i class="fas fa-check-circle"></i> Submit IT-4
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Form W-9</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Request for Taxpayer Identification Number and Certification for
+                            tax reporting purposes.</p>
+                        <p>Complete this form if you are a U.S. person (including a resident alien).</p>
+                    </div>
+
+                    <form id="w9Form">
+                        <div class="form-group">
+                            <label for="name" class="form-label required">Name of entity/individual</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your full name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="businessName" class="form-label">Business name/disregarded entity name (if
+                                different)</label>
+                            <input type="text" id="businessName" class="form-control"
+                                placeholder="Business name if applicable">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Federal tax classification</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="individual" name="taxClassification" value="individual" checked>
+                                <label for="individual">Individual/sole proprietor</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="cCorp" name="taxClassification" value="cCorp">
+                                <label for="cCorp">C Corporation</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="sCorp" name="taxClassification" value="sCorp">
+                                <label for="sCorp">S Corporation</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="llc" name="taxClassification" value="llc">
+                                <label for="llc">LLC (Enter tax classification: C, S, or P)</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tin" class="form-label required">Taxpayer Identification Number (TIN)</label>
+                            <input type="text" id="tin" class="form-control" placeholder="SSN or EIN" required>
+                            <small class="text-muted">For individuals, this is generally your Social Security Number
+                                (SSN)</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="address" class="form-label required">Address</label>
+                                    <input type="text" id="address" class="form-control" placeholder="Street address"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="city" class="form-label required">City</label>
+                                    <input type="text" id="city" class="form-control" placeholder="City" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="state" class="form-label required">State</label>
+                                    <input type="text" id="state" class="form-control" placeholder="State" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="zip" class="form-label required">ZIP Code</label>
+                                    <input type="text" id="zip" class="form-control" placeholder="ZIP Code" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exemptPayeeCode" class="form-label">Exempt payee code (if any)</label>
+                            <select id="exemptPayeeCode" class="form-control">
+                                <option value="">Select code (1-13)</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fatcaCode" class="form-label">Exemption from FATCA reporting code (if any)</label>
+                            <select id="fatcaCode" class="form-control">
+                                <option value="">Select code (A-M)</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="certification" required>
+                                <label for="certification" class="required">I certify under penalty of perjury that the information provided is true and correct</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="backupWithholding">
+                                <label for="backupWithholding">I am subject to backup withholding (cross out item 2 above if you have been notified that you are subject to backup withholding due to underreporting interest or dividends)</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearW9">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitW9">
+                        <i class="fas fa-check-circle"></i> Submit W-9
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Complete Onboarding & Key Policy Training & Acknowledgement</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Acknowledge completion of required training and policies.</p>
+                        <p>Please review and acknowledge each policy and training module.</p>
+                    </div>
+
+                    <form id="trainingForm">
+                        <div class="form-group">
+                            <h4>Training Modules Completed</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="orientationTraining" required>
+                                <label for="orientationTraining" class="required">Employee Orientation Training</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="safetyTraining" required>
+                                <label for="safetyTraining" class="required">Safety and Emergency Procedures Training</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="hipaaTraining" required>
+                                <label for="hipaaTraining" class="required">HIPAA Privacy and Security Training</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="codeOfConduct" required>
+                                <label for="codeOfConduct" class="required">Code of Conduct and Ethics Training</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Policy Acknowledgement</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="handbookAck" required>
+                                <label for="handbookAck" class="required">I have received and reviewed the Employee Handbook</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="policyAck" required>
+                                <label for="policyAck" class="required">I have received and reviewed the Policies & Procedures Manual</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="confidentialityAck" required>
+                                <label for="confidentialityAck" class="required">I understand and agree to maintain confidentiality of client and organizational information</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="trainingCertification" required>
+                                <label for="trainingCertification" class="required">I certify that I have completed all required training and understand the policies and procedures</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearTraining">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitTraining">
+                        <i class="fas fa-check-circle"></i> Submit Training Acknowledgement
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-upload"></i>
+                        <span>Required Documents Upload</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Upload required documents for your employment file.</p>
+                        <p>Please upload clear, legible copies of the following documents.</p>
+                    </div>
+
+                    <form id="documentsForm">
+                        <div class="form-group">
+                            <label for="driversLicense" class="form-label required">Copy of Driver's License</label>
+                            <input type="file" id="driversLicense" class="form-control" accept="image/*,.pdf" required>
+                            <small class="text-muted">Upload a clear photo or scan of your driver's license</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ssnCard" class="form-label required">Copy of Social Security Card</label>
+                            <input type="file" id="ssnCard" class="form-control" accept="image/*,.pdf" required>
+                            <small class="text-muted">Upload a clear photo or scan of your Social Security card</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="educationDoc" class="form-label required">Copy of Highest Level of Education</label>
+                            <input type="file" id="educationDoc" class="form-control" accept="image/*,.pdf,.doc,.docx" required>
+                            <small class="text-muted">Upload diploma, degree, or transcript</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="professionalLicense" class="form-label">Copy of Professional License</label>
+                            <input type="file" id="professionalLicense" class="form-control" accept="image/*,.pdf">
+                            <small class="text-muted">If applicable, upload your professional license</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="resume" class="form-label required">Resume</label>
+                            <input type="file" id="resume" class="form-control" accept=".pdf,.doc,.docx" required>
+                            <small class="text-muted">Upload your current resume</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="carInsurance" class="form-label">Copy of Car Insurance (if driving with clients)</label>
+                            <input type="file" id="carInsurance" class="form-control" accept="image/*,.pdf">
+                            <small class="text-muted">Required only if you will be driving clients</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cprCert" class="form-label">Copy of CPR/First Aid Certifications</label>
+                            <input type="file" id="cprCert" class="form-control" accept="image/*,.pdf">
+                            <small class="text-muted">Upload current CPR and/or First Aid certification</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="docCertification" required>
+                                <label for="docCertification" class="required">I certify that all uploaded documents are true copies of the originals</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearDocuments">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitDocuments">
+                        <i class="fas fa-check-circle"></i> Submit Documents
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-search"></i>
+                        <span>Background Check Process</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Initiate background check process for employment.</p>
+                        <p>Toledo Ark requires all new hires to complete a BCI/FBI background check.</p>
+                    </div>
+
+                    <div class="form-instructions" style="background-color: #e7f3ff; border-left-color: #0066cc;">
+                        <h4>Background Check Instructions</h4>
+                        <p><strong>Step 1:</strong> Go to Express Fingerprinting Service</p>
+                        <p><strong>Step 2:</strong> Use the following codes:</p>
+                        <ul>
+                            <li>BCI Code: BCI-5164.34</li>
+                            <li>FBI Code: FBI-4757.101</li>
+                        </ul>
+                        <p><strong>Step 3:</strong> Complete fingerprinting and pay required fees</p>
+                        <p><strong>Step 4:</strong> Results will be sent directly to Toledo Ark</p>
+                    </div>
+
+                    <form id="backgroundForm">
+                        <div class="form-group">
+                            <label for="fingerprintDate" class="form-label required">Fingerprinting Appointment Date</label>
+                            <input type="date" id="fingerprintDate" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fingerprintLocation" class="form-label required">Fingerprinting Location</label>
+                            <input type="text" id="fingerprintLocation" class="form-control" placeholder="Express Fingerprinting Service location" required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="bciCode" required>
+                                <label for="bciCode" class="required">I will use BCI Code: BCI-5164.34</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="fbiCode" required>
+                                <label for="fbiCode" class="required">I will use FBI Code: FBI-4757.101</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="bgCertification" required>
+                                <label for="bgCertification" class="required">I authorize Toledo Ark to conduct a background check and understand that employment is contingent upon satisfactory results</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearBackground">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitBackground">
+                        <i class="fas fa-check-circle"></i> Submit Background Check Info
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-file-signature"></i>
+                        <span>Policy Documents Acknowledgement</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Acknowledge receipt and understanding of key policy documents.</p>
+                        <p>Please review and sign the following documents.</p>
+                    </div>
+
+                    <form id="policyForm">
+                        <div class="form-group">
+                            <h4>Document Reviews</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="handbookReceived" required>
+                                <label for="handbookReceived" class="required">I have received the Staff Handbook</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="handbookReviewed" required>
+                                <label for="handbookReviewed" class="required">I have reviewed the Staff Handbook and understand its contents</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="policiesReceived" required>
+                                <label for="policiesReceived" class="required">I have received the Policies & Procedures document</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="policiesReviewed" required>
+                                <label for="policiesReviewed" class="required">I have reviewed the Policies & Procedures and understand its contents</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h4>Electronic Signature</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="policySignature" class="form-label required">Electronic Signature</label>
+                            <input type="text" id="policySignature" class="form-control" placeholder="Type your full legal name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="policyDate" class="form-label required">Date</label>
+                            <input type="date" id="policyDate" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="policyAgreement" required>
+                                <label for="policyAgreement" class="required">I agree to comply with all policies and procedures outlined in the Staff Handbook and Policies & Procedures documents</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearPolicy">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitPolicy">
+                        <i class="fas fa-check-circle"></i> Submit Policy Acknowledgement
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <i class="fas fa-passport"></i>
+                        <span>Form I-9</span>
+                    </div>
+                    <div class="form-status status-required">Required</div>
+                </div>
+                <div class="form-content">
+                    <div class="form-instructions">
+                        <p><strong>Purpose:</strong> Employment Eligibility Verification as required by U.S. Citizenship
+                            and Immigration Services.</p>
+                        <p>Section 1 must be completed by the employee by the first day of employment.</p>
+                    </div>
+
+                    <form id="i9Form">
+                        <div class="form-group">
+                            <label class="form-label required">Citizenship/Immigration Status</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="citizen" name="citizenship" value="citizen" checked>
+                                <label for="citizen">Citizen of the United States</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="noncitizen" name="citizenship" value="noncitizen">
+                                <label for="noncitizen">Noncitizen national of the United States</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="permanentResident" name="citizenship" value="permanentResident">
+                                <label for="permanentResident">Lawful permanent resident</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="authorizedAlien" name="citizenship" value="authorizedAlien">
+                                <label for="authorizedAlien">Alien authorized to work</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label required">Last Name (Family Name)</label>
+                                    <input type="text" id="lastName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label required">First Name (Given Name)</label>
+                                    <input type="text" id="firstName" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="i9Address" class="form-label required">Address</label>
+                            <input type="text" id="i9Address" class="form-control" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="dob" class="form-label required">Date of Birth</label>
+                                    <input type="date" id="dob" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="ssn" class="form-label required">Social Security Number</label>
+                                    <input type="text" id="ssn" class="form-control" placeholder="XXX-XX-XXXX" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label required">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label required">Telephone Number</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Documentation to Present for Section 2</label>
+                            <div class="checkbox-group">
+                                <input type="radio" id="listA" name="documentation" value="listA" checked>
+                                <label for="listA">List A (Documents that establish both identity and employment
+                                    authorization)</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="radio" id="listB_C" name="documentation" value="listB_C">
+                                <label for="listB_C">List B AND List C (One document from each list)</label>
+                            </div>
+                            <small class="text-muted">You will need to present original documents to Toledo Ark for
+                                verification within 3 business days of your start date.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="i9Certification" required>
+                                <label for="i9Certification" class="required">I attest, under penalty of perjury, that
+                                    all information provided is true and correct</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="clearI9">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitI9">
+                        <i class="fas fa-check-circle"></i> Submit I-9
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h2 class="download-title">Download Additional Documents</h2>
+            <p>Please download these documents for your records and onboarding process.</p>
+
+            <div class="download-items">
+                <div class="download-item">
+                    <div class="download-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Blank W-9 Form</h3>
+                    <p>Official IRS Form W-9</p>
+                    <button class="btn btn-outline download-btn" data-file="W9">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+
+                <div class="download-item">
+                    <div class="download-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Blank I-9 Form</h3>
+                    <p>USCIS Form I-9</p>
+                    <button class="btn btn-outline download-btn" data-file="I9">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+
+                <div class="download-item">
+                    <div class="download-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <h3>Welcome Letter</h3>
+                    <p>Personalized Welcome</p>
+                    <button class="btn btn-outline download-btn" data-file="Welcome">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+
+            <button class="btn btn-success" id="completeOnboarding">
+                <i class="fas fa-paper-plane"></i> Submit All Forms & Complete Onboarding
+            </button>
+
+            <div class="welcome-letter-generator" style="margin-top: 30px; padding: 20px; background-color: var(--light); border-radius: var(--radius);">
+                <h3 style="margin-bottom: 15px; color: var(--primary-dark);">Generate Welcome Letter</h3>
+                <p style="margin-bottom: 20px;">Fill in your details to generate a personalized welcome letter.</p>
+
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col">
+                        <input type="text" id="welcomeName" class="form-control" placeholder="Your Full Name" style="margin-bottom: 10px;">
+                        <input type="text" id="welcomePosition" class="form-control" placeholder="Position Title" style="margin-bottom: 10px;">
+                        <input type="date" id="welcomeStartDate" class="form-control" placeholder="Start Date" style="margin-bottom: 10px;">
+                        <input type="text" id="welcomeLocation" class="form-control" placeholder="Work Location" style="margin-bottom: 10px;">
+                        <input type="text" id="welcomeHours" class="form-control" placeholder="Operating Hours" style="margin-bottom: 10px;">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="generateWelcome">
+                    <i class="fas fa-magic"></i> Generate Welcome Letter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="completionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Onboarding Submission Complete!</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="completion-message">
+                <div class="completion-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Thank You for Completing Your Onboarding Forms</h3>
+                <p>Your forms have been successfully submitted to Toledo Ark.</p>
+                <p>Next steps:</p>
+                <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
+                    <li>You will receive a confirmation email shortly</li>
+                    <li>Toledo Ark will review your submitted forms</li>
+                    <li>You will be contacted regarding your first day and orientation</li>
+                    <li>Remember to bring original identification documents for I-9 verification</li>
+                </ul>
+                <p>If you have any questions, please contact Emily Boston at 419-708-0841.</p>
+                <button class="btn btn-primary" id="closeModalBtn">Return to Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Toledo Ark - New Hire Onboarding Portal</p>
+            <p>If you need assistance, contact Emily Boston at 419-708-0841 or email onboarding@toledoark.org</p>
+            <p>© 2025 Toledo Ark. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Form elements
+            const applicationForm = document.getElementById('applicationForm');
+            const referenceForm = document.getElementById('referenceForm');
+            const emergencyForm = document.getElementById('emergencyForm');
+            const w4Form = document.getElementById('w4Form');
+            const it4Form = document.getElementById('it4Form');
+            const trainingForm = document.getElementById('trainingForm');
+            const documentsForm = document.getElementById('documentsForm');
+            const backgroundForm = document.getElementById('backgroundForm');
+            const policyForm = document.getElementById('policyForm');
+            const w9Form = document.getElementById('w9Form');
+            const i9Form = document.getElementById('i9Form');
+
+            // Button elements
+            const submitApplicationBtn = document.getElementById('submitApplication');
+            const submitReferenceBtn = document.getElementById('submitReference');
+            const submitEmergencyBtn = document.getElementById('submitEmergency');
+            const submitW4Btn = document.getElementById('submitW4');
+            const submitIT4Btn = document.getElementById('submitIT4');
+            const submitTrainingBtn = document.getElementById('submitTraining');
+            const submitDocumentsBtn = document.getElementById('submitDocuments');
+            const submitBackgroundBtn = document.getElementById('submitBackground');
+            const submitPolicyBtn = document.getElementById('submitPolicy');
+            const submitW9Btn = document.getElementById('submitW9');
+            const submitI9Btn = document.getElementById('submitI9');
+
+            const clearApplicationBtn = document.getElementById('clearApplication');
+            const clearReferenceBtn = document.getElementById('clearReference');
+            const clearEmergencyBtn = document.getElementById('clearEmergency');
+            const clearW4Btn = document.getElementById('clearW4');
+            const clearIT4Btn = document.getElementById('clearIT4');
+            const clearTrainingBtn = document.getElementById('clearTraining');
+            const clearDocumentsBtn = document.getElementById('clearDocuments');
+            const clearBackgroundBtn = document.getElementById('clearBackground');
+            const clearPolicyBtn = document.getElementById('clearPolicy');
+            const clearW9Btn = document.getElementById('clearW9');
+            const clearI9Btn = document.getElementById('clearI9');
+
+            const completeOnboardingBtn = document.getElementById('completeOnboarding');
+            const generateWelcomeBtn = document.getElementById('generateWelcome');
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            const completionModal = document.getElementById('completionModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const closeModalBtn2 = document.getElementById('closeModalBtn');
+
+            // Form submission tracking
+            let applicationSubmitted = false;
+            let referenceSubmitted = false;
+            let emergencySubmitted = false;
+            let w4Submitted = false;
+            let it4Submitted = false;
+            let trainingSubmitted = false;
+            let documentsSubmitted = false;
+            let backgroundSubmitted = false;
+            let policySubmitted = false;
+            let w9Submitted = false;
+            let i9Submitted = false;
+
+            submitApplicationBtn.addEventListener('click', function () {
+                if (validateForm(applicationForm)) {
+                    applicationSubmitted = true;
+                    updateFormStatus('applicationForm', 'completed');
+                    updateProgress();
+                    showNotification('Application form submitted successfully!', 'success');
+                }
+            });
+
+            submitReferenceBtn.addEventListener('click', function () {
+                if (validateForm(referenceForm)) {
+                    referenceSubmitted = true;
+                    updateFormStatus('referenceForm', 'completed');
+                    updateProgress();
+                    showNotification('Reference form submitted successfully!', 'success');
+                }
+            });
+
+            submitEmergencyBtn.addEventListener('click', function () {
+                if (validateForm(emergencyForm)) {
+                    emergencySubmitted = true;
+                    updateFormStatus('emergencyForm', 'completed');
+                    updateProgress();
+                    showNotification('Emergency contact form submitted successfully!', 'success');
+                }
+            });
+
+            submitW4Btn.addEventListener('click', function () {
+                if (validateForm(w4Form)) {
+                    w4Submitted = true;
+                    updateFormStatus('w4Form', 'completed');
+                    updateProgress();
+                    showNotification('W-4 form submitted successfully!', 'success');
+                }
+            });
+
+            submitIT4Btn.addEventListener('click', function () {
+                if (validateForm(it4Form)) {
+                    it4Submitted = true;
+                    updateFormStatus('it4Form', 'completed');
+                    updateProgress();
+                    showNotification('IT-4 form submitted successfully!', 'success');
+                }
+            });
+
+            submitTrainingBtn.addEventListener('click', function () {
+                if (validateForm(trainingForm)) {
+                    trainingSubmitted = true;
+                    updateFormStatus('trainingForm', 'completed');
+                    updateProgress();
+                    showNotification('Training acknowledgement submitted successfully!', 'success');
+                }
+            });
+
+            submitDocumentsBtn.addEventListener('click', function () {
+                if (validateForm(documentsForm)) {
+                    documentsSubmitted = true;
+                    updateFormStatus('documentsForm', 'completed');
+                    updateProgress();
+                    showNotification('Documents uploaded successfully!', 'success');
+                }
+            });
+
+            submitBackgroundBtn.addEventListener('click', function () {
+                if (validateForm(backgroundForm)) {
+                    backgroundSubmitted = true;
+                    updateFormStatus('backgroundForm', 'completed');
+                    updateProgress();
+                    showNotification('Background check information submitted successfully!', 'success');
+                }
+            });
+
+            submitPolicyBtn.addEventListener('click', function () {
+                if (validateForm(policyForm)) {
+                    policySubmitted = true;
+                    updateFormStatus('policyForm', 'completed');
+                    updateProgress();
+                    showNotification('Policy acknowledgement submitted successfully!', 'success');
+                }
+            });
+
+            submitW9Btn.addEventListener('click', function () {
+                if (validateForm(w9Form)) {
+                    w9Submitted = true;
+                    updateFormStatus('w9Form', 'completed');
+                    updateProgress();
+                    showNotification('W-9 form submitted successfully!', 'success');
+                }
+            });
+
+            submitI9Btn.addEventListener('click', function () {
+                if (validateForm(i9Form)) {
+                    i9Submitted = true;
+                    updateFormStatus('i9Form', 'completed');
+                    updateProgress();
+                    showNotification('I-9 form submitted successfully!', 'success');
+                }
+            });
+
+            clearApplicationBtn.addEventListener('click', function () {
+                applicationForm.reset();
+                showNotification('Application form cleared', 'info');
+            });
+
+            clearReferenceBtn.addEventListener('click', function () {
+                referenceForm.reset();
+                showNotification('Reference form cleared', 'info');
+            });
+
+            clearEmergencyBtn.addEventListener('click', function () {
+                emergencyForm.reset();
+                showNotification('Emergency contact form cleared', 'info');
+            });
+
+            clearW4Btn.addEventListener('click', function () {
+                w4Form.reset();
+                showNotification('W-4 form cleared', 'info');
+            });
+
+            clearIT4Btn.addEventListener('click', function () {
+                it4Form.reset();
+                showNotification('IT-4 form cleared', 'info');
+            });
+
+            clearTrainingBtn.addEventListener('click', function () {
+                trainingForm.reset();
+                showNotification('Training form cleared', 'info');
+            });
+
+            clearDocumentsBtn.addEventListener('click', function () {
+                documentsForm.reset();
+                showNotification('Documents form cleared', 'info');
+            });
+
+            clearBackgroundBtn.addEventListener('click', function () {
+                backgroundForm.reset();
+                showNotification('Background check form cleared', 'info');
+            });
+
+            clearPolicyBtn.addEventListener('click', function () {
+                policyForm.reset();
+                showNotification('Policy form cleared', 'info');
+            });
+
+            clearW9Btn.addEventListener('click', function () {
+                w9Form.reset();
+                showNotification('W-9 form cleared', 'info');
+            });
+
+            clearI9Btn.addEventListener('click', function () {
+                i9Form.reset();
+                showNotification('I-9 form cleared', 'info');
+            });
+
+            completeOnboardingBtn.addEventListener('click', function () {
+                const requiredForms = [
+                    applicationSubmitted, referenceSubmitted, emergencySubmitted,
+                    w4Submitted, it4Submitted, trainingSubmitted, documentsSubmitted,
+                    backgroundSubmitted, policySubmitted, w9Submitted, i9Submitted
+                ];
+
+                const allSubmitted = requiredForms.every(form => form);
+
+                if (!allSubmitted) {
+                    showNotification('Please submit all required forms before completing onboarding.', 'error');
+                    return;
+                }
+
+                completionModal.style.display = 'flex';
+                updateStep(5);
+            });
+
+            generateWelcomeBtn.addEventListener('click', function () {
+                const name = document.getElementById('welcomeName').value;
+                const position = document.getElementById('welcomePosition').value;
+                const startDate = document.getElementById('welcomeStartDate').value;
+                const location = document.getElementById('welcomeLocation').value;
+                const hours = document.getElementById('welcomeHours').value;
+
+                if (!name || !position || !startDate || !location || !hours) {
+                    showNotification('Please fill in all welcome letter fields.', 'error');
+                    return;
+                }
+
+                generateWelcomeLetter(name, position, startDate, location, hours);
+            });
+
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const fileType = this.getAttribute('data-file');
+                    downloadFile(fileType);
+                });
+            });
+
+            closeModalBtn.addEventListener('click', function () {
+                completionModal.style.display = 'none';
+            });
+
+            closeModalBtn2.addEventListener('click', function () {
+                completionModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === completionModal) {
+                    completionModal.style.display = 'none';
+                }
+            });
+
+            function validateForm(form) {
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'var(--danger)';
+
+                        field.addEventListener('input', function () {
+                            this.style.borderColor = 'var(--border)';
+                        });
+                    }
+                });
+
+                if (!isValid) {
+                    showNotification('Please fill in all required fields marked with *', 'error');
+                }
+
+                return isValid;
+            }
+
+            function updateFormStatus(formId, status) {
+                const formCard = document.getElementById(formId).closest('.form-card');
+                const statusElement = formCard.querySelector('.form-status');
+
+                if (status === 'completed') {
+                    statusElement.textContent = 'Completed';
+                    statusElement.className = 'form-status status-completed';
+
+                    const submitBtn = formCard.querySelector('.btn-primary');
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Submitted';
+                    submitBtn.classList.remove('btn-primary');
+                    submitBtn.classList.add('btn-success');
+                }
+            }
+
+            function updateProgress() {
+                if (w9Submitted) {
+                    document.getElementById('step2').classList.add('completed');
+                }
+
+                if (i9Submitted) {
+                    document.getElementById('step3').classList.add('completed');
+                    document.getElementById('step3').classList.add('active');
+                    document.getElementById('step2').classList.remove('active');
+                }
+            }
+
+            function updateStep(stepNumber) {
+                for (let i = 1; i <= 5; i++) {
+                    const step = document.getElementById(`step${i}`);
+                    step.classList.remove('active');
+
+                    if (i < stepNumber) {
+                        step.classList.add('completed');
+                    } else if (i === stepNumber) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('completed');
+                    }
+                }
+            }
+
+            function generateWelcomeLetter(name, position, startDate, location, hours) {
+                const letterContent = `
+Welcome Letter!
+
+${new Date().toLocaleDateString()}
+
+Dear ${name},
+
+Welcome to Toledo Ark! We are thrilled to have you join our team as a ${position}! We are excited to have you join the ranks and be part of the team as we work toward Toledo Ark's Mission and Vision. Your start date will be ${new Date(startDate).toLocaleDateString()}, and your work location will be ${location}.
+As a contracted employee, you are responsible for scheduling your own times within the operating business hours of ${hours}. On the first day, please remember that our dress code is comfortable but professional attire. Please see our mutually agreed upon contract for terms and conditions of your role with Toledo Ark.
+You will be part of our Clinical Team, reporting first to the manager of Case Management, Kelly Morales QBHS, then to Clinical Director, Emily Boston LISW-S LICDC-CS, and finally our Agency Owner, Andre McCallum. Your team will be here to support you and provide you with the guidance you need as you settle into your new position. You will receive an Employee Handbook that contains detailed information about our agency policies, procedures, and important matters that we require you to understand, as part of your onboarding experience.
+If you have questions or concerns before your start date, reach out to Kelly at 419-283-3018. Once again, WELCOME TO THE TEAM!
+
+Sincerely,
+
+Andre McCallum
+Agency Owner
+Toledo Ark
+`;
+
+                // Create and download the letter
+                const blob = new Blob([letterContent], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `Welcome_Letter_${name.replace(/\s+/g, '_')}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                showNotification('Welcome letter generated and downloaded!', 'success');
+            }
+
+            function downloadFile(fileType) {
+                let fileName, fileContent;
+
+                switch (fileType) {
+                    case 'W9':
+                        fileName = 'Blank_W9_Form.pdf';
+                        fileContent = 'This would be the actual W-9 PDF file content.';
+                        break;
+                    case 'I9':
+                        fileName = 'Blank_I9_Form.pdf';
+                        fileContent = 'This would be the actual I-9 PDF file content.';
+                        break;
+                    case 'Welcome':
+                        fileName = 'Welcome_Letter.docx';
+                        fileContent = 'This would be the actual Welcome Letter document.';
+                        break;
+                    default:
+                        return;
+                }
+
+                showNotification(`Downloading ${fileName}...`, 'info');
+
+                const link = document.createElement('a');
+                link.href = '#';
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.right = '20px';
+                notification.style.padding = '15px 20px';
+                notification.style.borderRadius = 'var(--radius)';
+                notification.style.fontWeight = '600';
+                notification.style.zIndex = '1000';
+                notification.style.boxShadow = 'var(--shadow)';
+                notification.style.maxWidth = '350px';
+
+                if (type === 'success') {
+                    notification.style.backgroundColor = 'var(--success)';
+                    notification.style.color = 'white';
+                } else if (type === 'error') {
+                    notification.style.backgroundColor = 'var(--danger)';
+                    notification.style.color = 'white';
+                } else {
+                    notification.style.backgroundColor = 'var(--accent)';
+                    notification.style.color = 'white';
+                }
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.transition = 'opacity 0.5s';
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 4000);
+            }
+
+            updateStep(2);
+        });
+    </script>
+</body>
+
+</html>
